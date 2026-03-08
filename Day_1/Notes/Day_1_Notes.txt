@@ -1,0 +1,33 @@
+https://www.geeksforgeeks.org/installation-guide/visual-code-studio-for-mac/
+https://www.geeksforgeeks.org/installation-guide/how-to-install-nodejs-on-macos/
+https://code.visualstudio.com/docs/typescript/typescript-tutorial
+
+| Tool       | Role                               |
+| ---------- | ---------------------------------- |
+| Node.js    | Engine to run JavaScript tools     |
+| NPM        | App store for JavaScript libraries |
+| TypeScript | Language we write                  |
+| tsc        | Translator (TS → JS)               |
+
+
+| Feature           | Compiler                                 | Interpreter                           |
+| ----------------- | ---------------------------------------- | ------------------------------------- |
+| Translation       | Converts the **entire program at once**  | Converts **one line at a time**       |
+| Execution         | Program runs **after compilation**       | Executes **line by line immediately** |
+| Error Detection   | Shows **all errors after compilation**   | Shows **errors line by line**         |
+| Speed             | **Faster execution** after compilation   | **Slower execution**                  |
+| Output            | Generates a **separate executable file** | Does **not create a separate file**   |
+| Debugging         | Harder to debug                          | Easier to debug                       |
+| Example Languages | C, C++                                   | Python, JavaScript                    |
+
+Compiler (Concept)
+A compiler translates the entire source code into machine code before execution.
+
+Flow
+Source Code → Compiler → Machine Code → Execution
+
+Interpreter (Concept)
+
+An interpreter reads the program line by line and executes it immediately.
+
+Flow - Source Code → Interpreter → Execution (Line by Line)
