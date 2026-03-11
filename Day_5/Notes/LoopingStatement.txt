@@ -37,15 +37,12 @@ Repeat until condition becomes false
 
 for Loop (Most Common)
 Syntax
-for (initialization; condition; update) {
+for (initialization; condition; increment/decrement) {
   // code to repeat
 }
 
 Example
-
-let i;
-
-for (i = 1; i <= 5; i++) {
+for (let i = 1; i <= 5; i++) {
   console.log(i);
 }
 
@@ -123,8 +120,7 @@ for (let key in user) {
 6️⃣ break and continue
 break → Exit loop
 for (let i = 1; i <= 5; i++) {
-  if (i === 3)
-break;
+  if (i === 3) break;
   console.log(i);
 }
 

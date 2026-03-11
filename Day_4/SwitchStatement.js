@@ -15,18 +15,28 @@ switch (day) {
 }
 
 
-let results = "PASS";
+let results = "Test";
 
 switch(results){
 case "PASS":
   console.log("Your scored good marks");
   break;
-case "PASS":
+case "FAIL":
   console.log("Your not scored good marks");
   break;
 default:
   console.log("Study Well");
+}
 
-  
+for (let i = 1; i <= 5; i++) {
+  if (i === 3)
+break;
+  console.log(i);
+}
 
+for (let i = 1; i <= 5; i++) {
+  if (i === 3){
+continue;
+  } 
+  console.log(i);
 }

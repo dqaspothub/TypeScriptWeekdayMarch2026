@@ -1,6 +1,5 @@
 
-let results = (age>=18) ? "Eligile to vote" : "Eligible to note vote";
-
+let results = (age>=18) ? "Eligile to vote" : "Eligible to not vote";
 
 let age = 20;
 
