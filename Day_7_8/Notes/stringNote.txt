@@ -1,0 +1,239 @@
+What is a String in JavaScript?
+
+A **string** is a sequence of characters used to represent text.
+
+let name = "John";
+let city = 'Chennai';
+let message = `Hello World`;
+
+✅ Types of string declarations
+
+
+"Double quotes"
+'Single quotes'
+`Backticks (Template literals)`
+---
+
+Important String Features
+
+1. **Strings are Immutable**
+
+You **cannot change** a string directly.
+
+
+let str = "Hello";
+str[0] = "h";   // ❌ Not allowed
+console.log(str); // Hello
+
+
+---
+
+2. **Access Characters**
+
+
+let str = "Hello";
+
+console.log(str[0]);     // H
+console.log(str.charAt(1)); // e
+
+
+---
+
+Common String Methods (Very Important 🔥)
+
+---
+
+✅ 1. length
+
+Returns number of characters
+
+let str = "Hello";
+console.log(str.length); // 5
+
+---
+
+✅ 2. toUpperCase() / toLowerCase()
+
+let str = "hello";
+
+console.log(str.toUpperCase()); // HELLO
+console.log(str.toLowerCase()); // hello
+
+---
+
+✅ 3. trim()
+
+Removes spaces from start & end
+
+let str = "  hello  ";
+console.log(str.trim()); // "hello"
+
+---
+
+✅ 4. slice(start, end)
+
+Extracts part of string
+
+let str = "JavaScript";
+
+console.log(str.slice(0, 4)); // Java
+console.log(str.slice(4));    // Script
+
+---
+
+✅ 5. substring(start, end)
+
+Similar to slice but no negative index
+
+let str = "Hello";
+
+console.log(str.substring(1, 4)); // ell
+
+---
+
+✅ 6. replace()
+
+Replaces first occurrence
+
+let str = "Hello World";
+
+console.log(str.replace("World", "JS")); // Hello JS
+
+👉 Replace all:
+
+console.log(str.replaceAll("o", "0")); // Hell0 W0rld
+
+---
+
+✅ 7. includes()
+
+Checks if value exists
+
+let str = "Playwright";
+
+console.log(str.includes("wright")); // true
+
+---
+
+✅ 8. startsWith() / endsWith()
+
+let str = "Automation";
+
+console.log(str.startsWith("Auto")); // true
+console.log(str.endsWith("tion"));   // true
+
+---
+
+✅ 9. indexOf() / lastIndexOf()
+
+let str = "hello";
+
+console.log(str.indexOf("l"));     // 2
+console.log(str.lastIndexOf("l")); // 3
+
+---
+
+✅ 10. split()
+
+Converts string → array
+
+let str = "apple,banana,mango";
+
+let arr = str.split(",");
+console.log(arr); // ["apple", "banana", "mango"]
+
+---
+
+✅ 11. concat()
+
+Joins strings
+
+let a = "Hello";
+let b = "World";
+
+console.log(a.concat(" ", b)); // Hello World
+
+👉 Better way:
+
+console.log(`${a} ${b}`);
+
+---
+
+✅ 12. repeat()
+
+let str = "Hi ";
+
+console.log(str.repeat(3)); // Hi Hi Hi
+
+---
+
+✅ 13. charCodeAt()
+
+Returns ASCII value
+
+let str = "A";
+
+console.log(str.charCodeAt(0)); // 65
+
+---
+
+✅ 14. padStart() / padEnd()
+
+let str = "5";
+
+console.log(str.padStart(3, "0")); // 005
+console.log(str.padEnd(3, "0"));   // 500
+
+---
+
+# 🔹 Template Literals (Important 🔥)
+
+Used for dynamic strings
+
+let name = "John";
+let age = 25;
+
+console.log(`My name is ${name} and I am ${age} years old`);
+
+
+---
+Real-Time Use Cases (Automation 💡)
+
+✅ 1. Validate text in UI
+
+
+let text = "Login Successful";
+
+console.log(text.includes("Successful")); // true
+
+
+---
+
+✅ 2. Extract data
+
+
+let price = "₹500";
+
+console.log(price.slice(1)); // 500
+
+
+---
+✅ 3. Split values
+
+
+let items = "Apple|Mango|Banana";
+
+let arr = items.split("|");
+
+
+---
+
+✅ 4. Clean input data
+
+
+let username = "   admin   ";
+
+console.log(username.trim()); // admin
+
+
+-

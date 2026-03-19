@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript String Methods - Interactive Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7b2cbf;
+            --accent: #ff006e;
+            --dark: #0a0e27;
+            --darker: #050714;
+            --light: #f0f0f0;
+            --code-bg: #1a1f3a;
+            --success: #06ffa5;
+            --warning: #ffbe0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(123, 44, 191, 0.1) 0%, transparent 50%);
+            z-index: 0;
+            animation: morphGradient 15s ease-in-out infinite;
+        }
+
+        @keyframes morphGradient {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: scale(1.1) rotate(5deg);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            letter-spacing: -3px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, rgba(26, 31, 58, 0.6), rgba(10, 14, 39, 0.8));
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            animation: slideInUp 0.7s ease-out backwards;
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .method-card:hover::before {
+            opacity: 1;
+        }
+
+        .method-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .method-card:hover::after {
+            left: 100%;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .method-card:nth-child(1) { animation-delay: 0.05s; }
+        .method-card:nth-child(2) { animation-delay: 0.1s; }
+        .method-card:nth-child(3) { animation-delay: 0.15s; }
+        .method-card:nth-child(4) { animation-delay: 0.2s; }
+        .method-card:nth-child(5) { animation-delay: 0.25s; }
+        .method-card:nth-child(6) { animation-delay: 0.3s; }
+        .method-card:nth-child(7) { animation-delay: 0.35s; }
+        .method-card:nth-child(8) { animation-delay: 0.4s; }
+        .method-card:nth-child(9) { animation-delay: 0.45s; }
+        .method-card:nth-child(10) { animation-delay: 0.5s; }
+
+        .method-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(0, 212, 255, 0.3),
+                0 0 40px rgba(255, 0, 110, 0.2);
+        }
+
+        .method-name {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .method-name::before {
+            content: '⚡';
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+
+        .method-desc {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--code-bg);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            color: var(--light);
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 
+                0 0 0 4px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 15px 35px rgba(0, 212, 255, 0.4),
+                0 0 30px rgba(123, 44, 191, 0.3);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .output {
+            margin-top: 18px;
+            padding: 18px;
+            background: var(--code-bg);
+            border-left: 5px solid var(--success);
+            border-radius: 10px;
+            min-height: 60px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .output::before {
+            content: '// OUTPUT';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 0.7rem;
+            color: var(--success);
+            opacity: 0.6;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .output.empty {
+            color: #555;
+            font-style: italic;
+        }
+
+        .output.error {
+            border-left-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .syntax {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 44, 191, 0.1));
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+            color: var(--warning);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+        }
+
+        .syntax::before {
+            content: 'JS';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.65rem;
+            background: var(--secondary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .method-card {
+                padding: 25px;
+            }
+        }
+
+        .scroll-indicator {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.6;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🚀</div>
+            <h1>JavaScript Strings</h1>
+            <p class="subtitle">Master String Methods Interactively</p>
+            <div class="badge">ES6+ Compatible</div>
+        </header>
+
+        <div class="methods-grid">
+            <!-- length -->
+            <div class="method-card">
+                <div class="method-name">length</div>
+                <div class="method-desc">Returns the number of characters in the string (property, not a method)</div>
+                <div class="syntax">str.length</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="length-input" placeholder="JavaScript">
+                </div>
+                <button onclick="testLength()">Get Length</button>
+                <div class="output empty" id="length-output">Result will appear here...</div>
+            </div>
+
+            <!-- charAt() -->
+            <div class="method-card">
+                <div class="method-name">charAt()</div>
+                <div class="method-desc">Returns the character at the specified index</div>
+                <div class="syntax">str.charAt(index)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="charAt-input" placeholder="JavaScript">
+                </div>
+                <div class="input-group">
+                    <label>Index</label>
+                    <input type="number" id="charAt-index" placeholder="0" min="0">
+                </div>
+                <button onclick="testCharAt()">Get Character</button>
+                <div class="output empty" id="charAt-output">Result will appear here...</div>
+            </div>
+
+            <!-- charCodeAt() -->
+            <div class="method-card">
+                <div class="method-name">charCodeAt()</div>
+                <div class="method-desc">Returns the Unicode of the character at the specified index</div>
+                <div class="syntax">str.charCodeAt(index)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="charCodeAt-input" placeholder="ABC">
+                </div>
+                <div class="input-group">
+                    <label>Index</label>
+                    <input type="number" id="charCodeAt-index" placeholder="0" min="0">
+                </div>
+                <button onclick="testCharCodeAt()">Get Unicode</button>
+                <div class="output empty" id="charCodeAt-output">Result will appear here...</div>
+            </div>
+
+            <!-- concat() -->
+            <div class="method-card">
+                <div class="method-name">concat()</div>
+                <div class="method-desc">Joins two or more strings and returns a new string</div>
+                <div class="syntax">str.concat(str2, str3, ...)</div>
+                <div class="input-group">
+                    <label>First String</label>
+                    <input type="text" id="concat-input1" placeholder="Hello">
+                </div>
+                <div class="input-group">
+                    <label>Second String</label>
+                    <input type="text" id="concat-input2" placeholder=" World">
+                </div>
+                <div class="input-group">
+                    <label>Third String (optional)</label>
+                    <input type="text" id="concat-input3" placeholder="!">
+                </div>
+                <button onclick="testConcat()">Concatenate</button>
+                <div class="output empty" id="concat-output">Result will appear here...</div>
+            </div>
+
+            <!-- includes() -->
+            <div class="method-card">
+                <div class="method-name">includes()</div>
+                <div class="method-desc">Checks if a string contains a specified substring</div>
+                <div class="syntax">str.includes(searchString, position)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="includes-input" placeholder="JavaScript is awesome">
+                </div>
+                <div class="input-group">
+                    <label>Search For</label>
+                    <input type="text" id="includes-search" placeholder="awesome">
+                </div>
+                <button onclick="testIncludes()">Check Includes</button>
+                <div class="output empty" id="includes-output">Result will appear here...</div>
+            </div>
+
+            <!-- indexOf() -->
+            <div class="method-card">
+                <div class="method-name">indexOf()</div>
+                <div class="method-desc">Returns the index of first occurrence of specified value</div>
+                <div class="syntax">str.indexOf(searchValue, fromIndex)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="indexOf-input" placeholder="Hello World">
+                </div>
+                <div class="input-group">
+                    <label>Search For</label>
+                    <input type="text" id="indexOf-search" placeholder="o">
+                </div>
+                <button onclick="testIndexOf()">Find Index</button>
+                <div class="output empty" id="indexOf-output">Result will appear here...</div>
+            </div>
+
+            <!-- lastIndexOf() -->
+            <div class="method-card">
+                <div class="method-name">lastIndexOf()</div>
+                <div class="method-desc">Returns the index of last occurrence of specified value</div>
+                <div class="syntax">str.lastIndexOf(searchValue, fromIndex)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="lastIndexOf-input" placeholder="Hello World">
+                </div>
+                <div class="input-group">
+                    <label>Search For</label>
+                    <input type="text" id="lastIndexOf-search" placeholder="o">
+                </div>
+                <button onclick="testLastIndexOf()">Find Last Index</button>
+                <div class="output empty" id="lastIndexOf-output">Result will appear here...</div>
+            </div>
+
+            <!-- slice() -->
+            <div class="method-card">
+                <div class="method-name">slice()</div>
+                <div class="method-desc">Extracts a section of a string and returns it as a new string</div>
+                <div class="syntax">str.slice(beginIndex, endIndex)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="slice-input" placeholder="JavaScript">
+                </div>
+                <div class="input-group">
+                    <label>Start Index</label>
+                    <input type="number" id="slice-start" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <label>End Index (optional)</label>
+                    <input type="number" id="slice-end" placeholder="4">
+                </div>
+                <button onclick="testSlice()">Slice String</button>
+                <div class="output empty" id="slice-output">Result will appear here...</div>
+            </div>
+
+            <!-- substring() -->
+            <div class="method-card">
+                <div class="method-name">substring()</div>
+                <div class="method-desc">Extracts characters between two indices</div>
+                <div class="syntax">str.substring(indexStart, indexEnd)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="substring-input" placeholder="JavaScript">
+                </div>
+                <div class="input-group">
+                    <label>Start Index</label>
+                    <input type="number" id="substring-start" placeholder="0" min="0">
+                </div>
+                <div class="input-group">
+                    <label>End Index (optional)</label>
+                    <input type="number" id="substring-end" placeholder="4" min="0">
+                </div>
+                <button onclick="testSubstring()">Extract Substring</button>
+                <div class="output empty" id="substring-output">Result will appear here...</div>
+            </div>
+
+            <!-- substr() (deprecated but still used) -->
+            <div class="method-card">
+                <div class="method-name">substr()</div>
+                <div class="method-desc">Extracts a part of a string, beginning at the specified index</div>
+                <div class="syntax">str.substr(start, length)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="substr-input" placeholder="JavaScript">
+                </div>
+                <div class="input-group">
+                    <label>Start Index</label>
+                    <input type="number" id="substr-start" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <label>Length</label>
+                    <input type="number" id="substr-length" placeholder="4" min="0">
+                </div>
+                <button onclick="testSubstr()">Extract Substr</button>
+                <div class="output empty" id="substr-output">Result will appear here...</div>
+            </div>
+
+            <!-- toUpperCase() -->
+            <div class="method-card">
+                <div class="method-name">toUpperCase()</div>
+                <div class="method-desc">Converts the string to uppercase letters</div>
+                <div class="syntax">str.toUpperCase()</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="upper-input" placeholder="javascript">
+                </div>
+                <button onclick="testUpperCase()">Convert to Uppercase</button>
+                <div class="output empty" id="upper-output">Result will appear here...</div>
+            </div>
+
+            <!-- toLowerCase() -->
+            <div class="method-card">
+                <div class="method-name">toLowerCase()</div>
+                <div class="method-desc">Converts the string to lowercase letters</div>
+                <div class="syntax">str.toLowerCase()</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="lower-input" placeholder="JAVASCRIPT">
+                </div>
+                <button onclick="testLowerCase()">Convert to Lowercase</button>
+                <div class="output empty" id="lower-output">Result will appear here...</div>
+            </div>
+
+            <!-- trim() -->
+            <div class="method-card">
+                <div class="method-name">trim()</div>
+                <div class="method-desc">Removes whitespace from both ends of the string</div>
+                <div class="syntax">str.trim()</div>
+                <div class="input-group">
+                    <label>Enter String (with spaces)</label>
+                    <input type="text" id="trim-input" placeholder="  Hello World  ">
+                </div>
+                <button onclick="testTrim()">Trim String</button>
+                <div class="output empty" id="trim-output">Result will appear here...</div>
+            </div>
+
+            <!-- trimStart() -->
+            <div class="method-card">
+                <div class="method-name">trimStart()</div>
+                <div class="method-desc">Removes whitespace from the beginning of the string</div>
+                <div class="syntax">str.trimStart()</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="trimStart-input" placeholder="  Hello World">
+                </div>
+                <button onclick="testTrimStart()">Trim Start</button>
+                <div class="output empty" id="trimStart-output">Result will appear here...</div>
+            </div>
+
+            <!-- trimEnd() -->
+            <div class="method-card">
+                <div class="method-name">trimEnd()</div>
+                <div class="method-desc">Removes whitespace from the end of the string</div>
+                <div class="syntax">str.trimEnd()</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="trimEnd-input" placeholder="Hello World  ">
+                </div>
+                <button onclick="testTrimEnd()">Trim End</button>
+                <div class="output empty" id="trimEnd-output">Result will appear here...</div>
+            </div>
+
+            <!-- replace() -->
+            <div class="method-card">
+                <div class="method-name">replace()</div>
+                <div class="method-desc">Replaces the first occurrence of a substring</div>
+                <div class="syntax">str.replace(searchValue, newValue)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="replace-input" placeholder="Hello World">
+                </div>
+                <div class="input-group">
+                    <label>Find</label>
+                    <input type="text" id="replace-old" placeholder="World">
+                </div>
+                <div class="input-group">
+                    <label>Replace With</label>
+                    <input type="text" id="replace-new" placeholder="JavaScript">
+                </div>
+                <button onclick="testReplace()">Replace</button>
+                <div class="output empty" id="replace-output">Result will appear here...</div>
+            </div>
+
+            <!-- replaceAll() -->
+            <div class="method-card">
+                <div class="method-name">replaceAll()</div>
+                <div class="method-desc">Replaces all occurrences of a substring</div>
+                <div class="syntax">str.replaceAll(searchValue, newValue)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="replaceAll-input" placeholder="Hello Hello World">
+                </div>
+                <div class="input-group">
+                    <label>Find</label>
+                    <input type="text" id="replaceAll-old" placeholder="Hello">
+                </div>
+                <div class="input-group">
+                    <label>Replace With</label>
+                    <input type="text" id="replaceAll-new" placeholder="Hi">
+                </div>
+                <button onclick="testReplaceAll()">Replace All</button>
+                <div class="output empty" id="replaceAll-output">Result will appear here...</div>
+            </div>
+
+            <!-- split() -->
+            <div class="method-card">
+                <div class="method-name">split()</div>
+                <div class="method-desc">Splits the string into an array of substrings</div>
+                <div class="syntax">str.split(separator, limit)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="split-input" placeholder="apple,banana,cherry">
+                </div>
+                <div class="input-group">
+                    <label>Separator</label>
+                    <input type="text" id="split-separator" placeholder=",">
+                </div>
+                <button onclick="testSplit()">Split String</button>
+                <div class="output empty" id="split-output">Result will appear here...</div>
+            </div>
+
+            <!-- startsWith() -->
+            <div class="method-card">
+                <div class="method-name">startsWith()</div>
+                <div class="method-desc">Checks if the string starts with specified characters</div>
+                <div class="syntax">str.startsWith(searchString, position)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="startsWith-input" placeholder="JavaScript is fun">
+                </div>
+                <div class="input-group">
+                    <label>Search String</label>
+                    <input type="text" id="startsWith-search" placeholder="Java">
+                </div>
+                <button onclick="testStartsWith()">Check Starts With</button>
+                <div class="output empty" id="startsWith-output">Result will appear here...</div>
+            </div>
+
+            <!-- endsWith() -->
+            <div class="method-card">
+                <div class="method-name">endsWith()</div>
+                <div class="method-desc">Checks if the string ends with specified characters</div>
+                <div class="syntax">str.endsWith(searchString, length)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="endsWith-input" placeholder="JavaScript is fun">
+                </div>
+                <div class="input-group">
+                    <label>Search String</label>
+                    <input type="text" id="endsWith-search" placeholder="fun">
+                </div>
+                <button onclick="testEndsWith()">Check Ends With</button>
+                <div class="output empty" id="endsWith-output">Result will appear here...</div>
+            </div>
+
+            <!-- repeat() -->
+            <div class="method-card">
+                <div class="method-name">repeat()</div>
+                <div class="method-desc">Returns a new string with a specified number of copies</div>
+                <div class="syntax">str.repeat(count)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="repeat-input" placeholder="Hello! ">
+                </div>
+                <div class="input-group">
+                    <label>Count</label>
+                    <input type="number" id="repeat-count" placeholder="3" min="0" max="10">
+                </div>
+                <button onclick="testRepeat()">Repeat String</button>
+                <div class="output empty" id="repeat-output">Result will appear here...</div>
+            </div>
+
+            <!-- padStart() -->
+            <div class="method-card">
+                <div class="method-name">padStart()</div>
+                <div class="method-desc">Pads the string from the start to reach a given length</div>
+                <div class="syntax">str.padStart(targetLength, padString)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="padStart-input" placeholder="5">
+                </div>
+                <div class="input-group">
+                    <label>Target Length</label>
+                    <input type="number" id="padStart-length" placeholder="4" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Pad String</label>
+                    <input type="text" id="padStart-char" placeholder="0">
+                </div>
+                <button onclick="testPadStart()">Pad Start</button>
+                <div class="output empty" id="padStart-output">Result will appear here...</div>
+            </div>
+
+            <!-- padEnd() -->
+            <div class="method-card">
+                <div class="method-name">padEnd()</div>
+                <div class="method-desc">Pads the string from the end to reach a given length</div>
+                <div class="syntax">str.padEnd(targetLength, padString)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="padEnd-input" placeholder="5">
+                </div>
+                <div class="input-group">
+                    <label>Target Length</label>
+                    <input type="number" id="padEnd-length" placeholder="4" min="0">
+                </div>
+                <div class="input-group">
+                    <label>Pad String</label>
+                    <input type="text" id="padEnd-char" placeholder="0">
+                </div>
+                <button onclick="testPadEnd()">Pad End</button>
+                <div class="output empty" id="padEnd-output">Result will appear here...</div>
+            </div>
+
+            <!-- match() -->
+            <div class="method-card">
+                <div class="method-name">match()</div>
+                <div class="method-desc">Searches a string for a match against a regular expression</div>
+                <div class="syntax">str.match(regexp)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="match-input" placeholder="The year is 2024">
+                </div>
+                <div class="input-group">
+                    <label>Pattern (e.g., \d+ for numbers)</label>
+                    <input type="text" id="match-pattern" placeholder="\d+">
+                </div>
+                <button onclick="testMatch()">Find Match</button>
+                <div class="output empty" id="match-output">Result will appear here...</div>
+            </div>
+
+            <!-- search() -->
+            <div class="method-card">
+                <div class="method-name">search()</div>
+                <div class="method-desc">Searches for a match and returns the index</div>
+                <div class="syntax">str.search(regexp)</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="search-input" placeholder="Hello World 2024">
+                </div>
+                <div class="input-group">
+                    <label>Pattern (e.g., \d+ for numbers)</label>
+                    <input type="text" id="search-pattern" placeholder="\d+">
+                </div>
+                <button onclick="testSearch()">Search Pattern</button>
+                <div class="output empty" id="search-output">Result will appear here...</div>
+            </div>
+
+            <!-- localeCompare() -->
+            <div class="method-card">
+                <div class="method-name">localeCompare()</div>
+                <div class="method-desc">Compares two strings in the current locale</div>
+                <div class="syntax">str.localeCompare(compareString)</div>
+                <div class="input-group">
+                    <label>First String</label>
+                    <input type="text" id="localeCompare-input1" placeholder="apple">
+                </div>
+                <div class="input-group">
+                    <label>Second String</label>
+                    <input type="text" id="localeCompare-input2" placeholder="banana">
+                </div>
+                <button onclick="testLocaleCompare()">Compare</button>
+                <div class="output empty" id="localeCompare-output">Result will appear here...</div>
+            </div>
+
+            <!-- toString() -->
+            <div class="method-card">
+                <div class="method-name">toString()</div>
+                <div class="method-desc">Returns a string representing the specified object</div>
+                <div class="syntax">str.toString()</div>
+                <div class="input-group">
+                    <label>Enter Value</label>
+                    <input type="text" id="toString-input" placeholder="123">
+                </div>
+                <button onclick="testToString()">Convert to String</button>
+                <div class="output empty" id="toString-output">Result will appear here...</div>
+            </div>
+
+            <!-- valueOf() -->
+            <div class="method-card">
+                <div class="method-name">valueOf()</div>
+                <div class="method-desc">Returns the primitive value of a String object</div>
+                <div class="syntax">str.valueOf()</div>
+                <div class="input-group">
+                    <label>Enter String</label>
+                    <input type="text" id="valueOf-input" placeholder="Hello">
+                </div>
+                <button onclick="testValueOf()">Get Primitive Value</button>
+                <div class="output empty" id="valueOf-output">Result will appear here...</div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <p style="color: var(--primary); font-size: 0.9rem;">↓ Scroll to explore more methods ↓</p>
+        </div>
+    </div>
+
+    <script>
+        function displayOutput(elementId, result, isError = false) {
+            const output = document.getElementById(elementId);
+            output.textContent = result;
+            output.classList.remove('empty', 'error');
+            if (isError) {
+                output.classList.add('error');
+            }
+        }
+
+        function testLength() {
+            const str = document.getElementById('length-input').value;
+            displayOutput('length-output', `Length: ${str.length}`);
+        }
+
+        function testCharAt() {
+            const str = document.getElementById('charAt-input').value;
+            const index = parseInt(document.getElementById('charAt-index').value);
+            
+            if (index < 0 || index >= str.length) {
+                displayOutput('charAt-output', `Index out of bounds! Valid range: 0-${str.length - 1}`, true);
+            } else {
+                displayOutput('charAt-output', `Character at index ${index}: "${str.charAt(index)}"`);
+            }
+        }
+
+        function testCharCodeAt() {
+            const str = document.getElementById('charCodeAt-input').value;
+            const index = parseInt(document.getElementById('charCodeAt-index').value) || 0;
+            
+            if (index < 0 || index >= str.length) {
+                displayOutput('charCodeAt-output', `Index out of bounds!`, true);
+            } else {
+                const code = str.charCodeAt(index);
+                displayOutput('charCodeAt-output', `Character: "${str.charAt(index)}"\nUnicode: ${code}\nHex: 0x${code.toString(16).toUpperCase()}`);
+            }
+        }
+
+        function testConcat() {
+            const str1 = document.getElementById('concat-input1').value;
+            const str2 = document.getElementById('concat-input2').value;
+            const str3 = document.getElementById('concat-input3').value;
+            displayOutput('concat-output', `Result: "${str1.concat(str2, str3)}"`);
+        }
+
+        function testIncludes() {
+            const str = document.getElementById('includes-input').value;
+            const search = document.getElementById('includes-search').value;
+            displayOutput('includes-output', `Includes "${search}": ${str.includes(search)}`);
+        }
+
+        function testIndexOf() {
+            const str = document.getElementById('indexOf-input').value;
+            const search = document.getElementById('indexOf-search').value;
+            const index = str.indexOf(search);
+            displayOutput('indexOf-output', index >= 0 ? `First occurrence at index: ${index}` : `"${search}" not found (returns -1)`);
+        }
+
+        function testLastIndexOf() {
+            const str = document.getElementById('lastIndexOf-input').value;
+            const search = document.getElementById('lastIndexOf-search').value;
+            const index = str.lastIndexOf(search);
+            displayOutput('lastIndexOf-output', index >= 0 ? `Last occurrence at index: ${index}` : `"${search}" not found (returns -1)`);
+        }
+
+        function testSlice() {
+            const str = document.getElementById('slice-input').value;
+            const start = parseInt(document.getElementById('slice-start').value) || 0;
+            const end = document.getElementById('slice-end').value;
+            
+            const result = end ? str.slice(start, parseInt(end)) : str.slice(start);
+            displayOutput('slice-output', `Result: "${result}"`);
+        }
+
+        function testSubstring() {
+            const str = document.getElementById('substring-input').value;
+            const start = parseInt(document.getElementById('substring-start').value) || 0;
+            const end = document.getElementById('substring-end').value;
+            
+            const result = end ? str.substring(start, parseInt(end)) : str.substring(start);
+            displayOutput('substring-output', `Result: "${result}"`);
+        }
+
+        function testSubstr() {
+            const str = document.getElementById('substr-input').value;
+            const start = parseInt(document.getElementById('substr-start').value) || 0;
+            const length = parseInt(document.getElementById('substr-length').value);
+            
+            const result = length ? str.substr(start, length) : str.substr(start);
+            displayOutput('substr-output', `Result: "${result}"\n⚠️ Note: substr() is deprecated, use slice() instead`);
+        }
+
+        function testUpperCase() {
+            const str = document.getElementById('upper-input').value;
+            displayOutput('upper-output', `Result: "${str.toUpperCase()}"`);
+        }
+
+        function testLowerCase() {
+            const str = document.getElementById('lower-input').value;
+            displayOutput('lower-output', `Result: "${str.toLowerCase()}"`);
+        }
+
+        function testTrim() {
+            const str = document.getElementById('trim-input').value;
+            displayOutput('trim-output', `Before: "${str}" (length: ${str.length})\nAfter: "${str.trim()}" (length: ${str.trim().length})`);
+        }
+
+        function testTrimStart() {
+            const str = document.getElementById('trimStart-input').value;
+            displayOutput('trimStart-output', `Before: "${str}"\nAfter: "${str.trimStart()}"`);
+        }
+
+        function testTrimEnd() {
+            const str = document.getElementById('trimEnd-input').value;
+            displayOutput('trimEnd-output', `Before: "${str}"\nAfter: "${str.trimEnd()}"`);
+        }
+
+        function testReplace() {
+            const str = document.getElementById('replace-input').value;
+            const oldStr = document.getElementById('replace-old').value;
+            const newStr = document.getElementById('replace-new').value;
+            displayOutput('replace-output', `Result: "${str.replace(oldStr, newStr)}"`);
+        }
+
+        function testReplaceAll() {
+            const str = document.getElementById('replaceAll-input').value;
+            const oldStr = document.getElementById('replaceAll-old').value;
+            const newStr = document.getElementById('replaceAll-new').value;
+            displayOutput('replaceAll-output', `Result: "${str.replaceAll(oldStr, newStr)}"`);
+        }
+
+        function testSplit() {
+            const str = document.getElementById('split-input').value;
+            const separator = document.getElementById('split-separator').value || ' ';
+            const result = str.split(separator);
+            displayOutput('split-output', `Array: [${result.map(s => `"${s}"`).join(', ')}]\nLength: ${result.length}`);
+        }
+
+        function testStartsWith() {
+            const str = document.getElementById('startsWith-input').value;
+            const search = document.getElementById('startsWith-search').value;
+            displayOutput('startsWith-output', `Starts with "${search}": ${str.startsWith(search)}`);
+        }
+
+        function testEndsWith() {
+            const str = document.getElementById('endsWith-input').value;
+            const search = document.getElementById('endsWith-search').value;
+            displayOutput('endsWith-output', `Ends with "${search}": ${str.endsWith(search)}`);
+        }
+
+        function testRepeat() {
+            const str = document.getElementById('repeat-input').value;
+            const count = parseInt(document.getElementById('repeat-count').value) || 1;
+            
+            if (count < 0 || count > 10) {
+                displayOutput('repeat-output', 'Count must be between 0 and 10', true);
+            } else {
+                displayOutput('repeat-output', `Result: "${str.repeat(count)}"`);
+            }
+        }
+
+        function testPadStart() {
+            const str = document.getElementById('padStart-input').value;
+            const length = parseInt(document.getElementById('padStart-length').value) || 0;
+            const char = document.getElementById('padStart-char').value || ' ';
+            displayOutput('padStart-output', `Result: "${str.padStart(length, char)}"`);
+        }
+
+        function testPadEnd() {
+            const str = document.getElementById('padEnd-input').value;
+            const length = parseInt(document.getElementById('padEnd-length').value) || 0;
+            const char = document.getElementById('padEnd-char').value || ' ';
+            displayOutput('padEnd-output', `Result: "${str.padEnd(length, char)}"`);
+        }
+
+        function testMatch() {
+            const str = document.getElementById('match-input').value;
+            const pattern = document.getElementById('match-pattern').value;
+            
+            try {
+                const regex = new RegExp(pattern, 'g');
+                const result = str.match(regex);
+                if (result) {
+                    displayOutput('match-output', `Matches: [${result.map(m => `"${m}"`).join(', ')}]\nCount: ${result.length}`);
+                } else {
+                    displayOutput('match-output', 'No matches found');
+                }
+            } catch (e) {
+                displayOutput('match-output', 'Invalid regular expression', true);
+            }
+        }
+
+        function testSearch() {
+            const str = document.getElementById('search-input').value;
+            const pattern = document.getElementById('search-pattern').value;
+            
+            try {
+                const regex = new RegExp(pattern);
+                const index = str.search(regex);
+                displayOutput('search-output', index >= 0 ? `Pattern found at index: ${index}` : 'Pattern not found (returns -1)');
+            } catch (e) {
+                displayOutput('search-output', 'Invalid regular expression', true);
+            }
+        }
+
+        function testLocaleCompare() {
+            const str1 = document.getElementById('localeCompare-input1').value;
+            const str2 = document.getElementById('localeCompare-input2').value;
+            const result = str1.localeCompare(str2);
+            
+            let explanation = '';
+            if (result < 0) explanation = `"${str1}" comes before "${str2}"`;
+            else if (result > 0) explanation = `"${str1}" comes after "${str2}"`;
+            else explanation = `"${str1}" equals "${str2}"`;
+            
+            displayOutput('localeCompare-output', `Result: ${result}\n${explanation}`);
+        }
+
+        function testToString() {
+            const value = document.getElementById('toString-input').value;
+            displayOutput('toString-output', `String value: "${value.toString()}"\nType: ${typeof value.toString()}`);
+        }
+
+        function testValueOf() {
+            const str = document.getElementById('valueOf-input').value;
+            const strObj = new String(str);
+            displayOutput('valueOf-output', `Primitive value: "${strObj.valueOf()}"\nType: ${typeof strObj.valueOf()}`);
+        }
+    </script>
+</body>
+</html>

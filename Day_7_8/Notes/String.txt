@@ -73,10 +73,10 @@ My name is Alex and my age is 25
 
 Use `.length` property:
 
-```javascript
+
 let str = "JavaScript";
 console.log(str.length);
-```
+
 
 📌 Output:
 

@@ -1,0 +1,99 @@
+// Input data
+let rawInput = "   hello world | Playwright Automation | ₹500 | level   ";
+
+console.log("Original Input:", rawInput);
+
+// 1. trim() → remove extra spaces
+let cleanedInput = rawInput.trim();
+console.log("After trim:", cleanedInput);
+
+// 2. split() → convert string into array
+let parts = cleanedInput.split("|");
+console.log("Split Parts:", parts);
+
+// 3. trim each value (important in real-time data)
+let cleanedParts = parts.map(item => item.trim());
+console.log("Cleaned Parts:", cleanedParts);
+
+// Extract values
+let sentence = cleanedParts[0]; // "hello world"
+let course = cleanedParts[1];  // "Playwright Automation"
+let price = cleanedParts[2];   // "₹500"
+let word = cleanedParts[3];    // "level"
+
+// 4. toUpperCase() / toLowerCase()
+console.log(sentence.toUpperCase()); // HELLO WORLD
+console.log(course.toLowerCase());   // playwright automation
+
+// 5. slice() → extract part
+console.log(course.slice(0, 10)); // Playwright
+
+// 6. substring()
+console.log(sentence.substring(0, 5)); // hello
+
+// 7. replace()
+let updatedCourse = course.replace("Playwright", "Selenium");
+console.log("Updated Course:", updatedCourse);
+
+// 8. includes()
+console.log(course.includes("Automation")); // true
+
+// 9. startsWith() / endsWith()
+console.log(sentence.startsWith("hello")); // true
+console.log(sentence.endsWith("world"));   // true
+
+// 10. indexOf()
+console.log(sentence.indexOf("world")); // position
+
+// 11. charAt()
+console.log(sentence.charAt(1)); // e
+
+// 12. repeat()
+console.log("Hi ".repeat(3)); // Hi Hi Hi
+
+// 13. Extract number from price
+let amount = price.slice(1);
+console.log("Amount:", amount);
+
+// 14. padStart()
+console.log(amount.padStart(5, "0")); // 00500
+
+// 15. concat / template literals
+let message = "Course: ".concat(course);
+console.log(message);
+
+let templateMsg = `I am learning ${course} and it costs ${price}`;
+console.log(templateMsg);
+
+// 16. Reverse string
+let reversed = sentence.split("").reverse().join("");
+console.log("Reversed:", reversed);
+
+// 17. Palindrome check
+let reversedWord = word.split("").reverse().join("");
+if (word === reversedWord) {
+  console.log(word, "is a Palindrome");
+}
+
+// 18. Count vowels
+let vowels = "aeiou";
+let count = 0;
+
+for (let char of sentence.toLowerCase()) {
+  if (vowels.includes(char)) {
+    count++;
+  }
+}
+console.log("Vowel Count:", count);
+
+// 19. Capitalize each word
+let capitalized = sentence
+  .split(" ")
+  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+  .join(" ");
+
+console.log("Capitalized:", capitalized);
+
+// 20. Remove duplicates from string
+let unique = [...new Set(sentence)].join("");
+console.log("Unique Characters:", unique);

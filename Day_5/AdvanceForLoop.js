@@ -6,6 +6,9 @@ let student = {
     isActive: true
 };
 
+console.log(student.name);
+console.log(student["age"]);
+
 for (let key in student) {
     console.log(key + " : " + student[key]);
 }
@@ -13,10 +16,20 @@ for (let key in student) {
 
 let fruits = ["Apple", "Banana", "Mango"];
 
+console.log(fruits[0]); 
+console.log(fruits[1]);
+
 for (let index in fruits) {
     console.log(index + " -> " + fruits[index]);
 }
 
+for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]);
+}
+
+for (const fruit of fruits) {
+    console.log(fruit);
+}
 
 let word = "JavaScript";
 
