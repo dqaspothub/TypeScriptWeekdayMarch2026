@@ -53,7 +53,7 @@ welcomeUser("Sarah");
 welcomeUser(); // Uses default
 
 function countryOptions (CountryCheck ="US"){
-    console.log("The selected Country " +countryOptions )
+    console.log("The selected Country " + countryOptions )
 }
 
 
